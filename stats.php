@@ -83,18 +83,27 @@ function currentStatsBox($site_id,$api_key,$timestamp,$today)
     $return = substr($return[0],6);
     $monthavg = round(($return)/30);
 
-    //Prognosticate based on current time, how much left until midnight, and current pageviews
+    //Try and predict if today's traffic will beat the average daily traffic for the last week
+    //CHECK #1: Straight percentage based on how much of day is left
     $miltiplier = round((24 / date("G",$timestamp)),2);
     $prog = $todayposts * $miltiplier;
 
+    //CHECK #2: Curve based on readership of American based website with 2mil visitors per month
+    $daypostcurve = array(0.027774807,0.046947967,0.061012784,0.073294306,0.086336189,0.10373341,0.129288678,0.164043895,0.20582481,0.251802359,0.299501397,0.351663383,0.402238841,0.457099445,0.510331071,0.563625406,0.618030541,0.672019175,0.729664717,0.791267675,0.85449032,0.912840097,0.961926185,1);
+    $weekavgcheck = round(($weekavg * $daypostcurve[date("G",$timestamp)]),2);
+
+    //IF we already beat the weekly curve, GREEN
     if ($todayposts >= $weekavg)
         $color = "DEFDE0";
+    //IF we beat the curve based on readership by hour, BLUE
+    elseif ($todayposts >= $weekavgcheck)
+        $color = "9ab7d3";
+    //IF we beat the linear check based on percentage of the day remaining, YELLOW
     elseif ($prog >= $weekavg)
         $color = "FCF7DE";
+    //OTHERWISE RED
     else
         $color = "FDDFDF";
-
-    echo "<!-- PROG " . $prog . " MULT " . $miltiplier . " -->";
 
     echo "<table border=\"1\">";
 
