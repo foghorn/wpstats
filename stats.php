@@ -90,7 +90,18 @@ function currentStatsBox($site_id,$api_key,$timestamp,$today)
 
     //CHECK #2: Curve based on readership of American based website with 2mil visitors per month
     $daypostcurve = array(0.027774807,0.046947967,0.061012784,0.073294306,0.086336189,0.10373341,0.129288678,0.164043895,0.20582481,0.251802359,0.299501397,0.351663383,0.402238841,0.457099445,0.510331071,0.563625406,0.618030541,0.672019175,0.729664717,0.791267675,0.85449032,0.912840097,0.961926185,1);
-    $weekavgcheck = round(($weekavg * $daypostcurve[date("G",$timestamp)]),2);
+    $dpc_ref = date("G",$timestamp);
+    if ($dpc_ref > 0)
+    {
+        $dpp = ($daypostcurve[$dpc_ref] - $daypostcurve[($dpc_ref - 1)]) * (date("i",$timestamp) / 60);
+        $dpp = ($daypostcurve[$dpc_ref - 1] + $dpp);
+    }
+    else
+    {
+        $dpp = ($daypostcurve[$dpc_ref] * (date("i",$timestamp) / 60));
+    }
+
+    $weekavgcheck = round(($weekavg * $dpp));
 
     //IF we already beat the weekly curve, GREEN
     if ($todayposts >= $weekavg)
