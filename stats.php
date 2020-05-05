@@ -68,7 +68,7 @@ function currentStatsBox($site_id,$api_key,$timestamp,$today)
     $todayposts = $return[2];
 
     $yesterday=date('Y-m-d',($timestamp - 86400));
-    $return = s tr_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=1&limit=-1&end=' . $yesterday));
+    $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=1&limit=-1&end=' . $yesterday));
     $yesterdayposts = $return[2];
 
     $oneweekago=date('Y-m-d',($timestamp - 604800));
