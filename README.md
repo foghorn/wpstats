@@ -1,6 +1,8 @@
 # wpstats
 A simple PHP script for displaying the stats of your WordPress site using the WordPress stats.wordpress.com API.
 
+![Example dashboard](https://github.com/foghorn/wpstats/blob/master/wpstats_example.PNG "Example dashboard")
+
 # Overview
 This script will use your API key from WordPress.com to grab the live statistics and display them in a simple format that's easy to slot into a dashboard. This will enable you to check the stats for multiple websites without needing to log into each one, and display them on a single page. It can also enable you to embed your stats into a dashboard with other information.
 
