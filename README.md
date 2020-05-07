@@ -10,6 +10,22 @@ Note that the stats.wordpress.com API endpoint uses a simple authentication mech
 
 This script will work for your WordPress site assuming that you either have it hosted on WordPress.com or you have linked the site to your WordPress.com account through JetPack.
 
+# Items Displayed
+* Today: Current day's pageviews, colored based on a predictive model (see below)
+* vs yesterday: Total pageviews for the previous calendar day
+* vs last week: Total pageviews for the same day of the week in the previous week (7 days ago)
+* 7d avg: A rolling average of the pageviews for the previous 7 days (not including the current day)
+* 30d avg: A rolling average of the pageviews for the previous 30 days (not including the current day)
+* Bar graph for visualizing the previous 14 days (including the current day)
+
+# Quick Note About The Predictive Model
+The color of the cell for the current day's post count will change based on that number's relation to the expected pageview count based on the time of day. The prediction is based on the proportion of traffic per hour seen on a WordPress website with over 2 million visitors per month based in the United States, with the percentage of traffic by hour expressed in an array near line 88. The number is re-computed every minute, assuming a consistent rate of increase between the two hours and using the 7 day average as the comparison baseline.
+
+* If today's pageviews are above the current 7 day average for pageviews then the cell is GREEN
+* If today's pageviews are above the predicted pagevies based on the time of day, the cell is BLUE
+* If today's pageviews are within 10% of the predicted pageviews based on the time of day, the cell is YELLOW
+* Otherwise the cell is RED
+
 # Use Of These Files
 Feel free to re-use any portion of these files for other projects. There do not seem to be many tutorials or snippets available for querying this data, so this was all generated through trial and error.
 
