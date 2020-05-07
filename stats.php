@@ -75,11 +75,11 @@ function currentStatsBox($site_id,$api_key,$timestamp,$today)
     $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=1&limit=-1&end=' . $oneweekago));
     $oneweekposts = $return[2];
 
-    $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=7&limit=-1&end=' . $today . '&summarize'));
+    $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=7&limit=-1&end=' . $yesterday . '&summarize'));
     $return = substr($return[0],6);
     $weekavg = round(($return)/7);
 
-    $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=30&limit=-1&end=' . $today . '&summarize'));
+    $return = str_getcsv(file_get_contents('https://stats.wordpress.com/csv.php?api_key=' . $api_key . '&blog_id=' . $site_id . '&table=views&days=30&limit=-1&end=' . $yesterday . '&summarize'));
     $return = substr($return[0],6);
     $monthavg = round(($return)/30);
 
